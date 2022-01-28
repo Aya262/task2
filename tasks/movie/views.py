@@ -1,7 +1,9 @@
 from django.shortcuts import render
-from .forms import MovieForm
+from .forms import MovieForm ,ParserForm
 from .fillters import MovieFillter
 from .models import Movie
+import pandas as pd
+import json
 # Create your views here.
 
 def index(request):
@@ -21,3 +23,27 @@ def home(request):
     context={'filter':filter,
     'movies':movies}
     return render(request,'home.html',context)
+
+def parser(request):
+    json_result={}
+    form=ParserForm()
+    df=pd.DataFrame()
+    if request.method=='POST':
+        type=request.POST['type']
+        print(type)
+        filename=request.FILES['file']
+        if type=='XLSX':
+            df=pd.read_excel(filename,index_col=False)
+        elif type=='CSV':
+            df=pd.read_csv(filename)
+        elif type=='xml':
+            df=pd.read_xml(filename)
+        result=df.to_json(orient='records')
+        parsed=json.loads(result)
+        json_result=json.dumps(parsed,indent=4)
+        #print(request.FILES)
+        #file=request.FILES
+        #print(file)
+    context={'form':form,
+             'json_result':json_result}
+    return render(request,'parser.html',context)

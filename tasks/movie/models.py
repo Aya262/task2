@@ -13,3 +13,12 @@ class Movie(models.Model):
 
     def __str__(self):
         return str(self.title)
+
+
+class Parser(models.Model):
+    types=(('CSV','csv'),
+    ('XLSX','xlsx'),
+    ('xml','xml')
+    )
+    file=models.FileField(upload_to='Uploads/',max_length=254)
+    type=models.CharField(choices=types,max_length=10)
