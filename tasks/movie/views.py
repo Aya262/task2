@@ -30,7 +30,6 @@ def parser(request):
     df=pd.DataFrame()
     if request.method=='POST':
         type=request.POST['type']
-        print(type)
         filename=request.FILES['file']
         if type=='XLSX':
             df=pd.read_excel(filename,index_col=False)
@@ -41,9 +40,6 @@ def parser(request):
         result=df.to_json(orient='records')
         parsed=json.loads(result)
         json_result=json.dumps(parsed,indent=4)
-        #print(request.FILES)
-        #file=request.FILES
-        #print(file)
     context={'form':form,
              'json_result':json_result}
     return render(request,'parser.html',context)
