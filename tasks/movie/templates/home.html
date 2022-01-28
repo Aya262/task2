@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        </head>
+        <body>
+            <form method="post" action="">
+                {% csrf_token %}
+                {{filter.form.as_ul}}
+                <input class="btn btn-primary" type='submit' value='Search'>
+                </form>
+
+                {% if movies %}
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">Title</th>
+                            <th scope="col">Video</th>
+                            <th scope="col">Overview</th>
+                            <th scope="col">Release Date</th>
+                            <th scope="col">Popularity</th>
+                            <th scope="col">Vote Average</th>
+                            <th scope="col">Vote Count</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for movie in movies %}
+                            <tr>
+                                <td>{{movie.title}}</td>
+                                <td>{{movie.video}}</td>
+                                <td>{{movie.overview}}</td>
+                                <td>{{movie.release_date}}</td>
+                                <td>{{movie.popularity}}</td>
+                                <td>{{movie.vote_average}}</td>
+                                <td>{{movie.vote_count}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
+            </body>
+</html>
