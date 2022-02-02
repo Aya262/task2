@@ -34,3 +34,18 @@ navigate to manage.py location and run server
 (env) aya@aya-Inspiron-5559:~/task2-master/tasks$ python manage.py runserver
 ```
 In browser go to local host "http://127.0.0.1:8000/"
+
+
+
+# Data Parsing
+
+Small software which can parse CSV, XML,
+XLSX to Json
+
+## program
+
+Use the Pandas library [pandas](https://pandas.pydata.org/) for conversion
+
+Contain simple form to upload file and choose file format 
+
+Access the program through the same steps above except the url : "http://127.0.0.1:8000/parse/"
