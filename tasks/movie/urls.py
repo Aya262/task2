@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import index ,home ,parser
+from .views import *
 urlpatterns = [
     path('',home,name='home'),
-    path('parse/',parser,name='parser')
+    path('parse/',converToJson,name='parser')
 ]

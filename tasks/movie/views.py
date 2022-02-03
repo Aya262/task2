@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .forms import MovieForm ,ParserForm
 from .fillters import MovieFillter
-from .models import Movie
+from .models import *
 import pandas as pd
 import json
 # Create your views here.
@@ -23,16 +23,18 @@ def home(request):
     context={'filter':filter,
     'movies':movies}
     return render(request,'home.html',context)
-
+'''
 def parser(request):
     json_result={}
     form=ParserForm()
-    df=pd.DataFrame()
+    filetype={}
+    #df=pd.DataFrame()
     if request.method=='POST':
         type=request.POST['type']
         filename=request.FILES['file']
         if type=='XLSX':
-            df=pd.read_excel(filename,index_col=False)
+            filetype=ExcelFile()
+            #df=pd.read_excel(filename,index_col=False)
         elif type=='CSV':
             df=pd.read_csv(filename)
         elif type=='xml':
@@ -40,6 +42,26 @@ def parser(request):
         result=df.to_json(orient='records')
         parsed=json.loads(result)
         json_result=json.dumps(parsed,indent=4)
+    context={'form':form,
+             'json_result':json_result}
+    return render(request,'parser.html',context)
+'''
+
+def converToJson(request):
+    json_result={}
+    form=ParserForm()
+    filetype=None
+    if request.method=='POST':
+        type=request.POST['type']
+        filename=request.FILES['file']
+        if type=='XLSX':
+            filetype=ExcelFile()
+        elif type=='CSV':
+            filetype=CSVFile()
+        elif type=='xml':
+            filetype=XmlFile()
+        json_result=filetype.tojson(filename)
+
     context={'form':form,
              'json_result':json_result}
     return render(request,'parser.html',context)
