@@ -18,17 +18,38 @@ mostly search parameters use greater than or equal methodology for filtering
 
 ## Installation
 
-For Ubuntu user , git clone the repository
+create virtual environment to isolate all packages used
+
+```bash
+python -m venv env
+```
+
+To activate virtual environment,
+
+From ubuntu, use 
+
+```bash
+source env/bin/activate
+```
+ 
+From windows, use 
+
+```bash
+env\Scripts\activate
+```
+
+To install packages used in the program , 
+
+```bash
+pip install -r requirement.txt
+```
+
+To clone the repository
 
 ```bash
 git clone https://github.com/Aya262/task2.git
 ```
-change directory to task2 on device 
-and activate virtualenv
 
-```bash
-~/task2-master$ source env/bin/activate
-```
 navigate to manage.py location and run server
 ```bash
 (env) aya@aya-Inspiron-5559:~/task2-master/tasks$ python manage.py runserver
